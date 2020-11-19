@@ -1,0 +1,72 @@
+@font-face {
+	font-family: "Chinese Rocks";
+	src: url('chineserocks.ttf');
+}
+
+@font-face {
+	font-family: "Keyboard";
+	src: url('keyboard.ttf');
+}
+
+html, body {
+	background: none;
+	padding: 0;
+	margin: 0;
+	font-family: "Chinese Rocks";
+}
+
+#prompt {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#dead {
+	color: #f00;
+	font-size: 9vh;
+	text-align: center;
+}
+
+#cooldown-timer {
+	color: #fff;
+	font-size: 2vh;
+	text-align: center;
+}
+
+.instructions {
+	text-align: center;
+	color: #fff;
+	font-size: 3vh;
+}
+
+.key {
+	font-family: "Keyboard";
+	font-size: 4vh;
+}
+
+.command {
+	color: #fff;
+}
+
+.visible {
+	visibility: visible;
+	opacity: 1;
+	transition: opacity 0.25s linear;
+}
+
+.hidden {
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s 0.25s, opacity 0.25s linear;
+}
+
+#controls {
+	position: absolute;
+	left: 50%;
+	bottom: 1%;
+	transform: translate(-50%, 0);
+	color: #fff;
+	font-size: 2vh;
+	text-align: center;
+}
