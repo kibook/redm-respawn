@@ -14,3 +14,10 @@ Gives players the options of manually reviving or respawning when they die, afte
 | `Config.RespawnControl` | Control used to respawn.                                   | `0xE30CD707` (R)        |
 | `Config.ToggleControl`  | Control used to show/hide the death screen.                | `0x6DB8C62F` (Spacebar) |
 | `Config.Cooldown`       | Time in milliseconds before players can revive or respawn. | `5000` (5 seconds)      |
+
+# Commands
+
+| Command    | Description                         |
+|------------|-------------------------------------|
+| `/respawn` | Respawn at the default spawn point. |
+| `/revive`  | Revive yourself when dead.          |
