@@ -70,3 +70,16 @@ html, body {
 	font-size: 2vh;
 	text-align: center;
 }
+
+#killer {
+	display: none;
+	color: #fff;
+	text-align: center;
+	font-size: 1.7vh;
+	color: #f00;
+	padding-bottom: 1.5vh;
+}
+
+#killer-name {
+	color: #fff;
+}

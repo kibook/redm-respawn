@@ -1,4 +1,11 @@
-function showHud() {
+function showHud(killer) {
+	if (killer) {
+		document.getElementById('killer-name').innerHTML = killer;
+		document.getElementById('killer').style.display = 'block';
+	} else {
+		document.getElementById('killer').style.display = 'none';
+	}
+
 	document.getElementById('hud').className = 'visible';
 }
 
@@ -35,7 +42,7 @@ function toggleHud() {
 window.addEventListener('message', event => {
 	switch (event.data.type) {
 		case 'showHud':
-			showHud();
+			showHud(event.data.killer);
 			break;
 		case 'showInstructions':
 			showInstructions();

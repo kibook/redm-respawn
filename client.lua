@@ -12,6 +12,16 @@ RegisterCommand('respawn', function(source, args, raw)
 	end
 end, false)
 
+function GetPlayerFromPed(ped)
+	for _, playerId in ipairs(GetActivePlayers()) do
+		if GetPlayerPed(playerId) == ped then
+			return playerId
+		end
+	end
+
+	return nil
+end
+
 CreateThread(function()
 	TriggerEvent('chat:addSuggestion', '/revive', 'Revive yourself when dead', {})
 	TriggerEvent('chat:addSuggestion', '/respawn', 'Respawn at the default spawn point', {})
@@ -23,10 +33,15 @@ CreateThread(function()
 
 		if IsPedDeadOrDying(PlayerPedId()) then
 			if not timeOfDeath then
-				SendNUIMessage({
-					type = 'showHud'
-				})
 				timeOfDeath = GetSystemTime()
+
+				local sourceOfDeath = GetPedSourceOfDeath(PlayerPedId())
+				local killer = GetPlayerFromPed(sourceOfDeath)
+
+				SendNUIMessage({
+					type = 'showHud',
+					killer = killer and GetPlayerName(killer)
+				})
 			else
 				if IsControlJustPressed(0, Config.ToggleControl) then
 					SendNUIMessage({
