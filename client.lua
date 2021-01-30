@@ -32,8 +32,10 @@ CreateThread(function()
 		Wait(0)
 
 		if IsPedDeadOrDying(PlayerPedId()) then
+			local currentTime = GetSystemTime()
+
 			if not timeOfDeath then
-				timeOfDeath = GetSystemTime()
+				timeOfDeath = currentTime
 
 				local sourceOfDeath = GetPedSourceOfDeath(PlayerPedId())
 				local killer = GetPlayerFromPed(sourceOfDeath)
@@ -43,13 +45,13 @@ CreateThread(function()
 					killer = killer and GetPlayerName(killer)
 				})
 			else
-				if IsControlJustPressed(0, Config.ToggleControl) then
+				if IsControlJustPressed(0, Config.ToggleControl) and currentTime - timeOfDeath > 1000 then
 					SendNUIMessage({
 						type = 'toggleHud'
 					})
 				end
 
-				local timeLeft = timeOfDeath + Config.Cooldown - GetSystemTime()
+				local timeLeft = timeOfDeath + Config.Cooldown - currentTime
 
 				if timeLeft < 1 then
 					if not ReadyToRespawn then
