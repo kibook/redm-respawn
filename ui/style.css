@@ -1,6 +1,7 @@
 @font-face {
 	font-family: "Chinese Rocks";
 	src: url('chineserocks.ttf');
+	unicode-range: U+0020-007F;
 }
 
 @font-face {
@@ -12,7 +13,7 @@ html, body {
 	background: none;
 	padding: 0;
 	margin: 0;
-	font-family: "Chinese Rocks";
+	font-family: "Chinese Rocks", Helvetica;
 }
 
 #prompt {
