@@ -6,6 +6,10 @@ Gives players the options of manually reviving or respawning when they die, afte
 
 [![Respawn](https://i.imgur.com/TlKWwDqm.jpg)](https://imgur.com/TlKWwDq)
 
+# Requirements
+
+- [uiprompt](https://github.com/kibook/redm-uiprompt) library
+
 # Configuration
 
 | Variable                | Description                                                | Default                 |

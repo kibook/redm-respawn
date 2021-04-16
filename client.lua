@@ -1,5 +1,27 @@
 local ReadyToRespawn = false
 
+local RespawnOptionsPrompts = UipromptGroup:new("Respawn Options")
+
+local RevivePrompt = Uiprompt:new(Config.ReviveControl, "Revive", RespawnOptionsPrompts)
+RevivePrompt:setHoldMode(true)
+RevivePrompt:setOnHoldModeJustCompleted(function(prompt)
+	ResurrectPed(PlayerPedId())
+end)
+
+local RespawnPrompt = Uiprompt:new(Config.RespawnControl, "Respawn", RespawnOptionsPrompts)
+RespawnPrompt:setHoldMode(true)
+RespawnPrompt:setOnHoldModeJustCompleted(function(prompt)
+	exports.spawnmanager:spawnPlayer()
+end)
+
+local TogglePrompt = Uiprompt:new(Config.ToggleControl, "Toggle Death Screen", RespawnOptionsPrompts)
+TogglePrompt:setHoldMode(true)
+TogglePrompt:setOnHoldModeJustCompleted(function(prompt)
+	SendNUIMessage({
+		type = "toggleHud"
+	})
+end)
+
 RegisterCommand('revive', function(source, args, raw)
 	if ReadyToRespawn then
 		ResurrectPed(PlayerPedId())
@@ -22,22 +44,22 @@ function GetPlayerFromPed(ped)
 	return nil
 end
 
-CreateThread(function()
+Citizen.CreateThread(function()
 	TriggerEvent('chat:addSuggestion', '/revive', 'Revive yourself when dead', {})
 	TriggerEvent('chat:addSuggestion', '/respawn', 'Respawn at the default spawn point', {})
 
 	local timeOfDeath = nil
 
 	while true do
-		Wait(0)
+		local playerPed = PlayerPedId()
 
-		if IsPedDeadOrDying(PlayerPedId()) then
+		if IsPedDeadOrDying(playerPed) then
 			local currentTime = GetSystemTime()
 
 			if not timeOfDeath then
 				timeOfDeath = currentTime
 
-				local sourceOfDeath = GetPedSourceOfDeath(PlayerPedId())
+				local sourceOfDeath = GetPedSourceOfDeath(playerPed)
 				local killer = GetPlayerFromPed(sourceOfDeath)
 
 				SendNUIMessage({
@@ -45,26 +67,13 @@ CreateThread(function()
 					killer = killer and GetPlayerName(killer)
 				})
 			else
-				if IsControlJustPressed(0, Config.ToggleControl) and currentTime - timeOfDeath > 1000 then
-					SendNUIMessage({
-						type = 'toggleHud'
-					})
-				end
-
 				local timeLeft = timeOfDeath + Config.Cooldown - currentTime
 
 				if timeLeft < 1 then
 					if not ReadyToRespawn then
-						SendNUIMessage({
-							type = 'showInstructions'
-						})
 						ReadyToRespawn = true
-					end
-
-					if IsControlJustPressed(0, Config.RespawnControl) then -- Reload, R
-						exports.spawnmanager:spawnPlayer()
-					elseif IsControlJustPressed(0, Config.ReviveControl) then -- DynamicScenario, E
-						ResurrectPed(PlayerPedId())
+						RevivePrompt:setEnabledAndVisible(true)
+						RespawnPrompt:setEnabledAndVisible(true)
 					end
 				else
 					SendNUIMessage({
@@ -73,12 +82,19 @@ CreateThread(function()
 					})
 				end
 			end
+
+			RespawnOptionsPrompts:handleEvents()
 		elseif timeOfDeath then
 			SendNUIMessage({
 				type = 'hideHud'
 			})
 			timeOfDeath = nil
 			ReadyToRespawn = false
+
+			RevivePrompt:setEnabledAndVisible(false)
+			RespawnPrompt:setEnabledAndVisible(false)
 		end
+
+		Citizen.Wait(0)
 	end
 end)

@@ -1,9 +1,9 @@
 Config = {}
 
 -- Controls
-Config.ReviveControl = 0x2EAB0795 -- DynamicScenario, E
-Config.RespawnControl = 0xE30CD707 -- Reload, R
-Config.ToggleControl = 0x6DB8C62F -- FrontendX, Spacebar
+Config.ReviveControl = `INPUT_DYNAMIC_SCENARIO` -- E
+Config.RespawnControl = `INPUT_RELOAD` -- R
+Config.ToggleControl = `INPUT_FRONTEND_X` -- Space
 
 -- Time in ms before players can revive or respawn
 Config.Cooldown = 5000

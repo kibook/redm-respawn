@@ -9,13 +9,8 @@ function showHud(killer) {
 	document.getElementById('hud').className = 'visible';
 }
 
-function showInstructions() {
-	document.querySelectorAll('.instructions').forEach(e => e.className = 'instructions visible');
-}
-
 function hideHud() {
 	document.getElementById('hud').className = 'hidden';
-	document.querySelectorAll('.instructions').forEach(e => e.className = 'instructions hidden');
 }
 
 function updateCooldownTimer(timeLeft) {
@@ -43,9 +38,6 @@ window.addEventListener('message', event => {
 	switch (event.data.type) {
 		case 'showHud':
 			showHud(event.data.killer);
-			break;
-		case 'showInstructions':
-			showInstructions();
 			break;
 		case 'hideHud':
 			hideHud();

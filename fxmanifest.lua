@@ -13,6 +13,7 @@ files {
 ui_page 'ui/index.xhtml'
 
 client_scripts {
+	'@uiprompt/uiprompt.lua',
 	'config.lua',
 	'client.lua'
 }

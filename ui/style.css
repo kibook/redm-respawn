@@ -4,11 +4,6 @@
 	unicode-range: U+0020-007F;
 }
 
-@font-face {
-	font-family: "Keyboard";
-	src: url('keyboard.ttf');
-}
-
 html, body {
 	background: none;
 	padding: 0;
@@ -41,11 +36,6 @@ html, body {
 	font-size: 3vh;
 }
 
-.key {
-	font-family: "Keyboard";
-	font-size: 4vh;
-}
-
 .command {
 	color: #fff;
 }
@@ -60,16 +50,6 @@ html, body {
 	visibility: hidden;
 	opacity: 0;
 	transition: visibility 0s 0.25s, opacity 0.25s linear;
-}
-
-#controls {
-	position: absolute;
-	left: 50%;
-	bottom: 1%;
-	transform: translate(-50%, 0);
-	color: #fff;
-	font-size: 2vh;
-	text-align: center;
 }
 
 #killer {
