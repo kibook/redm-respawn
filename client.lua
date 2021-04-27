@@ -2,13 +2,13 @@ local ReadyToRespawn = false
 
 local RespawnOptionsPrompts = UipromptGroup:new("Respawn Options")
 
-local RevivePrompt = Uiprompt:new(Config.ReviveControl, "Revive", RespawnOptionsPrompts)
+local RevivePrompt = Uiprompt:new(Config.ReviveControl, "Revive", RespawnOptionsPrompts, false)
 RevivePrompt:setHoldMode(true)
 RevivePrompt:setOnHoldModeJustCompleted(function(prompt)
 	ResurrectPed(PlayerPedId())
 end)
 
-local RespawnPrompt = Uiprompt:new(Config.RespawnControl, "Respawn", RespawnOptionsPrompts)
+local RespawnPrompt = Uiprompt:new(Config.RespawnControl, "Respawn", RespawnOptionsPrompts, false)
 RespawnPrompt:setHoldMode(true)
 RespawnPrompt:setOnHoldModeJustCompleted(function(prompt)
 	exports.spawnmanager:spawnPlayer()
