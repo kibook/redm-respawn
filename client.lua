@@ -45,7 +45,7 @@ function GetPlayerFromPed(ped)
 end
 
 local function log(message)
-	exports.logmanager:log(GetCurrentResourceName(), message)
+	exports.logmanager:log{resource = GetCurrentResourceName(), message = message}
 end
 
 Citizen.CreateThread(function()
