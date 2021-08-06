@@ -44,10 +44,6 @@ function GetPlayerFromPed(ped)
 	return nil
 end
 
-local function log(message)
-	exports.logmanager:log{message = message}
-end
-
 Citizen.CreateThread(function()
 	TriggerEvent('chat:addSuggestion', '/revive', 'Revive yourself when dead', {})
 	TriggerEvent('chat:addSuggestion', '/respawn', 'Respawn at the default spawn point', {})
@@ -75,9 +71,15 @@ Citizen.CreateThread(function()
 				local deathCoords = GetEntityCoords(playerPed)
 
 				if killer then
-					log(("Killed by %s at (%.2f, %.2f, %.2f)"):format(killerName, deathCoords.x, deathCoords.y, deathCoords.z))
+					exports.logmanager:log {
+						message = ("Killed by %s"):format(killerName),
+						coords = deathCoords
+					}
 				else
-					log(("Died at (%.2f, %.2f, %.2f)"):format(deathCoords.x, deathCoords.y, deathCoords.z))
+					exports.logmanager:log {
+						message = "Died",
+						coords = deathCoords
+					}
 				end
 			else
 				local timeLeft = timeOfDeath + Config.Cooldown - currentTime
