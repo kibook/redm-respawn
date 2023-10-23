@@ -1,3 +1,12 @@
+AddEventHandler('onClientMapStart', function()
+	Citizen.Trace("Disabled: autospawn.")
+	exports.spawnmanager:spawnPlayer() -- Ensure player spawns into server.
+	Citizen.Wait(2500)
+	exports.spawnmanager:setAutoSpawn(false)
+	Citizen.Trace("disabled:.")
+end)
+
+
 local ReadyToRespawn = false
 
 local RespawnOptionsPrompts = UipromptGroup:new("Respawn Options")
